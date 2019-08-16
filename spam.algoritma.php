@@ -68,7 +68,7 @@ class spamAlgoritma{
 	public function findSpam($params){
 		$mailq		=self::spamCount($params);
 		//anda dapat menambahkan daftar putih, artinya yg masuk didaftar putih tidak akan pernah dianggap spam,meskipun trafik tinggi
-    $whiteList	=array('root@domain.com',
+    		$whiteList	=array('root@domain.com',
 		'MAILER-DAEMON',
 		'double-bounce@domain.com',
 		'getmail',
@@ -77,7 +77,7 @@ class spamAlgoritma{
 		
 		foreach($mailq as $r){
 			if(in_array($r[1],$whiteList)){ }else{
-				if($r[0]>=15){
+				if($r[0]>=$params['ToleransiMax']){
 					//add to blacklist email yang melebihi batas wajar
 					self::emailBlacklist(array('emailDomain'=>$r[1]));
 				}else{}
